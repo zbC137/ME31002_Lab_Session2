@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
 </head>
 
 <body>
@@ -108,11 +109,10 @@
                         </br></br>
                         Let's see an example. Calculate the step response of the following system.
                         </br></br>
-                        <div class="col-12 col-xl-8">
-                            <pre>
-                            <img src="pic/sa1.jpg" width="200" height="60">
-                            </pre>
+                        <div class="formula">
+                            <span>`G(s)=\frac(1)(s^2+0.6s+1)`</span>
                         </div>
+                        </br>
                         Create a new file and type the following script in it.
                         <div class="codeClass">
                             <code><pre>
@@ -270,6 +270,17 @@
                         </div>
                         As you can see, the results from both methods are exactly the same.
                     </p>
+                    <h4>
+                        Usage in Octave
+                    </h4>
+                    <hr>
+                    To use the functions "step", "impulse", "lsim", "pole", and "pzmap" in Octave, you need to load the
+                    control package firstly. You can add the following script to the beginning of your code to solve it.
+                    <div class="codeClass">
+                        <code><pre>
+                            pkg load control;
+                        </pre></code>
+                    </div>
                 </div>
                 </br>
 

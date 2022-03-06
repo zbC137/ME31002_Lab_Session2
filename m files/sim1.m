@@ -1,6 +1,10 @@
 clc; clear;
 close all;
 
+%% Usage in Octave
+% Uncomment the next line to use in Octave
+%pkg load control;
+
 %% Calculate transfer function
 s = tf('s');
 
