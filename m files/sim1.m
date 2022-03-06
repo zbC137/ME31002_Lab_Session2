@@ -22,7 +22,7 @@ G = feedback(G2, h2, -1)
 t = 0:0.001:10;
 
 [y1, t] = step(G, t);
-stepinfo(G)
+stepinfo(G) % not available in Octave
 
 [y2, t] = impulse(G, t);
 

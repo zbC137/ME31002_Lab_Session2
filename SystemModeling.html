@@ -164,7 +164,7 @@
                                 p = [-3, -2, -1];
                                 k = 2;
                                 [num, den] = residue(r, p, k)
-                                printsys(num, den, 's')
+                                sys = tf(num, den)
                             </pre></code>
                         </div>
                         If you run the script, you will see the following results in the command window.

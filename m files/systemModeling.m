@@ -1,5 +1,5 @@
 %uncomment the next line if you are using Octave
-% pkg load control;
+%pkg load control;
 
 s = tf('s');
 sys = 4/(s^3+2*s^2+3*s+4)
@@ -16,7 +16,7 @@ r = [-6, -4, 3];
 p = [-3, -2, -1];
 k = 2;
 [num, den] = residue(r, p, k)
-printsys(num, den, 's')
+sys = tf(num, den)
 
 s = tf('s');
 G = 4/(s^3+2*s^2+3*s+4);

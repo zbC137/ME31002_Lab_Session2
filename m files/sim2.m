@@ -1,3 +1,6 @@
+clc; clear;
+close all;
+
 t = 0:0.001:5;
 f = 1;
 v0 = 1;
