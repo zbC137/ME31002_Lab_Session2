@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -42,7 +46,7 @@
                         <!-- <span>Menu</span> -->
                     </button>
                     <div class="col-10 col-xl-auto h2Div" onclick="location.href='lab2.html';">
-                        <h2>ME31002 Lab Session 2</h2>
+                        <h2>ME31002 Lab Session 2 -- System Analysis</h2>
                     </div>
 
         </div>
@@ -51,194 +55,220 @@
             <div class="col-12 col-xl-8 mainContent">
                 <div>
                     <h4>
-                        Basic Syntax
+                        Time Responses
                     </h4>
                     <hr>
                     <p>
-                        In MATLAB there are 3 basic types of numbers that you will be working with, which are all actually matrices. There are scalars, which are just plain numbers, vectors, which are kind of like a list of numbers, and matrices, which are tables of numbers. Let's create a simple scalar:
-                        </br><div class="codeClass"><code>x = 6</code></div></br>
-                        The variable 'x' appeared in the Workspace and if we check its size, we can see that it is a one-by-one matrix even if it looks like a scalar.
-                        </br><div class="codeClass"><code>size(x)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   1
-</code></pre>
-                        </div></br>
-
-                        To create a vector, we use square brackets.
-                        </br><div class="codeClass"><code>v = [1 2 3];</code></div></br>
-                        So, our v variable contains 3 elements and if we check its size, we get that it's a one-by-three matrix.
-                        </br><div class="codeClass"><code>size(v)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   3
-</code></pre>
-                        </div></br>
-                        Here we used a semicolon. It we don't use it, then the result of our command will be printed out.
-                        </br><div class="codeClass"><code>v = [1 2 3]</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1   2   3
-</code></pre>
-                        </div></br>
-                        So, it is convenient to use semicolons when we want to keep our screen clear from too much data.
+                        The time response represents how the state of a dynamic system changes in time when subjected to
+                        a particular input, such as step response, impulse response and initial condition response. For
+                        some systems, we can analytically find a closed-form solution. However, for most systems, the
+                        closed-form analytical solutions are hard to find, which brings difficulties to the analysis of their
+                        time responses. Fortunately, Matlab provides powerful tools for analyzing the time responses of
+                        dynamic systems.
                         </br></br>
-                        Matrices are created like vectors with the difference that rows are separated by semicolons.
-                        </br><div class="codeClass"><code>A = [1 2; 3 4]</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   2
-   3   4
-</code></pre>
-                        </div></br>
-                        So, we obtained a two-by-two matrix.
-                        </br><div class="codeClass"><code>size(A)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   2   2
-</code></pre>
-                        </div></br>
-                        What if we would like to combine 3 row vectors into a matrix?
-                        </br><div class="codeClass"><code>P = [1 2 3 4]; </br>Q = [5 6 7 8]; </br>R = [9 11 11 12]; </code></div></br>
-                        We can assign them into a matrix.
-                        </br><div class="codeClass"><code>S = [P; Q; R]</code></div>
-                        <div class="codeAns">
-<pre><code>
-S =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-</code></pre>
-                        </div></br>
-                        So, we obtained a three-by-four matrix.
-                        </br><div class="codeClass"><code>size(S)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   3   4
-</code></pre>
-                        </div></br>
+                        <h5>
+                            Step Response
+                        </h5>
+                        The step response of dynamic system is calculated by function "step" in Matlab. The syntax is as
+                        follows:
+                        <div class="codeClass">
+                            <code><pre>
+                                t = 0:dT:T;
+                                step(sys, t);
+                            </pre></code>
+                        </div>
+                        where "dT" is the time step for simulation, "T" is the stop time of the simulation, and "sys" is
+                        the transfer function. Note that "t" is an optional argument. If you have the numerators and
+                        denominators of the transfer function, you can also use the following script to get the step response.
+                        <div class="codeClass">
+                            <code><pre>
+                                t = 0:dT:T;
+                                step(num, den, t);
+                            </pre></code>
+                        </div>
+                        After you run the script, a figure with the step response will be shown to you. Sometimes, we want
+                        to save the simulation data for further analysis, then the following syntax can be used.
+                        <div class="codeClass">
+                            <code><pre>
+                                t = 0:dT:T;
+                                [y, t] = step(sys, t); or [y, t] = step(num, den, t);
+                                plot(t, y);
+                            </pre></code>
+                        </div>
+                        In this case, the response data of the dynamic system will be saved to vector "y", but there will
+                        not be a figure showing the step response. Therefore, we need to call the "plot" function to draw
+                        the step response. With data "y" and "t", we can calculate the rise time, peak time, maximum overshoot,
+                        and settling time of the step response. The syntax is
+                        <div class="codeClass">
+                            <code><pre>
+                                stepinfo(y, t); or stepinfo(sys);
+                            </pre></code>
+                        </div>
+                        The function will return a structure containing the information of the step response.
+                        </br></br>
+                        Let's see an example. Calculate the step response of the following system.
+                        </br></br>
+                        <div class="col-12 col-xl-8">
+                            <pre>
+                            <img src="pic/sa1.jpg" width="200" height="60">
+                            </pre>
+                        </div>
+                        Create a new file and type the following script in it.
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                sys = 1/(s^2+0.6*s+1);
+
+                                t = 0:0.001:30;
+                                [y, t] = step(sys, t);
+                                plot(t, y);
+                                stepinfo(y, t)
+                            </pre></code>
+                        </div>
+                        Run the file, and you can get the figure and the step response information in the command window.
+                        </br></br>
+                        <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/sa2.jpg" width="304" height="228"> <img src="pic/sa3.jpg" width="180" height="200">
+                            </pre>
+                        </div>
+                        <h5>
+                            Impulse Response
+                        </h5>
+                        The impulse response of dynamic system is calculated by function "impulse" in Matlab. The syntax is
+                        similar to that of step response:
+                        <div class="codeClass">
+                            <code><pre>
+                                t = 0:dt:T;
+                                [y, t] = impulse(sys, t); or [y, t] = impulse(num, den, t);
+                                plot(t, y);
+                            </pre></code>
+                        </div>
+                        Let's use the previous example to see the impulse response.Create a new file and type the following
+                        script in it.
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                sys = 1/(s^2+0.6*s+1);
+
+                                t = 0:0.001:30;
+                                [y, t] = impulse(sys, t);
+                                plot(t, y);
+                            </pre></code>
+                        </div>
+                        Run the file, and you can get the figure showing the impulse response.
+                        </br></br>
+                        <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/sa4.jpg" width="304" height="228">
+                            </pre>
+                        </div>
+                        <h5>
+                            Arbitrary Input Response
+                        </h5>
+                        The arbitrary input response of dynamic system is calculated by function "lsim" in Matlab. The
+                        syntax is as following
+                        <div class="codeClass">
+                            <code><pre>
+                                t = 0:dt:T;
+                                [y, t] = lsim(sys, u, t); or [y, t] = lsim(num, den, u, t);
+                                plot(t, y);
+                            </pre></code>
+                        </div>
+                        where "u" is the predefined input.
+                        </br></br>
+                        Let's use the previous example again to see the time response with a sin input signal.Create a new file
+                        and type the following script in it.
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                sys = 1/(s^2+0.6*s+1);
+
+                                t = 0:0.001:30;
+                                [y, t] = lsim(sys, sin(t), t);
+                                plot(t, y);
+                            </pre></code>
+                        </div>
+                        Run the file, and you can get the figure showing the impulse response.
+                        </br></br>
+                        <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/sa5.jpg" width="304" height="228">
+                            </pre>
+                        </div>
                     </p>
+                    <h4>
+                        Stability Analysis
+                    </h4>
                     <hr>
                     <p>
-                        From math courses, you should know that matrices' dimensions are very important when we are multiplying them or doing other operations. And typically, you work with a column vector, not a row vector like the one that we created before. So we can easily transform it into a column vector using apostrophe to perform a transpose.
-                        </br><div class="codeClass"><code>v = v'</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1
-   2
-   3
-</code></pre>
-                        </div></br>
-                        <div class="codeClass"><code>size(v)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-
-   3   1
-</code></pre>
-                        </div></br>
-                        So, you see that v used to be a one-by-three row vector, now it is a three-by-one vector. Of course, you can manually initialize a column vector using semicolons.
-                        </br><div class="codeClass"><code>v = [1; 2; 3]</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1
-   2
-   3
-</code></pre>
-                        </div><hr></br>
-                        The next thing we need to learn is how to access elements of a matrix. Generally, we use parentheses and index for that. So, if we want to get an element from the i-th row and j-th column we write it like this but with numbers.
-                        </br><div class="codeClass"><code>A(1,1)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans = 1
-</code></pre>
-                        </div></br>
-                        Note that indexing in MATLAB starts from 1, not 0 as in many other languages. Another thing that we can do is to extract a vector from a matrix. So, let's say we want the first row of matrix A. First, we identify the number of the row, 1 in our case, and put a colon in the choice of the column. This means returning all the columns in row 1.
-                        </br><div class="codeClass"><code>A(1,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   2
-</code></pre>
-                        </div></br>
-                        Similarly, we can use a colon syntax to get the entire column of a matrix. For example, we want to extract the second column of a matrix A.
-                        </br><div class="codeClass"><code>A(:,2)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   2
-   4
-</code></pre>
-                        </div></br>
-                        If we put colons in both parts, we will get the whole original matrix.
-                        </br><div class="codeClass"><code>A = [1 2 3 4; 5 6 7 8; 9 10 11 12; 13 4 15 16]</code></div>
-                        <div class="codeAns">
-<pre><code>
-A =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-   13    4   15   16
-</code></pre>
-                        </div></br>
-                        </br><div class="codeClass"><code>A(:,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-   13    4   15   16
-</code></pre>
-                        </div></br>
-                        Colon syntax can be as well used to access ranges or submatrices. Let's say we want a middle part of A.
-                        </br><div class="codeClass"><code>A(2:3, 2:3)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    6    7
-   10   11
-</code></pre>
-                        </div></br>
-                        If we want to get all the value from a specfic row. It is not necessary to identify the last index. So, if we write <code>A(3,:)</code>, we'll get all elements from the third row.
-                        </br><div class="codeClass"><code>A(3,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    9   10   11   12
-</code></pre>
-                        </div></br>
-
-
-                        The colon syntax can be used by itself, it basically creates a range. So if we do something like <code>1:10</code>, it gives back all the numbers from 1 to 10.
-                        </br><div class="codeClass"><code>1:10</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    1    2    3    4    5    6    7    8    9   10
-</code></pre>
-                        </div></br>
-                        We can assign this range to a variable <code>w</code>.
-                        </br><div class="codeClass"><code>w = 1:10</code></br><code>size(w)</code></div>
-                        <div class="codeAns">
-<pre><code>
-w =
-    1    2    3    4    5    6    7    8    9   10
-
-ans =
-    1   10
-</code></pre>
-                        </div></br>
-                        So, we can see that this command creates a row vector with the elements 1 to 10.
-
+                        As we all know, stability analysis of the dynamic systems is one of the most important problems
+                        in linear systems and control. There are many ways to analyze the stability. Matlab provides great
+                        tools for stability analysis.
+                        <h5>
+                        Stability Analysis Based on Poles' locations
+                        </h5>
+                        One intuitive way to analyze the stability of systems is to calculate the poles and make the analysis
+                        based on their locations. Basically, there are two methods to calculate the poles in Matlab.
+                        </br></br>
+                        The first method is to use the function "roots". The syntax is as following
+                        <div class="codeClass">
+                            <code><pre>
+                                den = [denominators];
+                                roots(den)
+                            </pre></code>
+                        </div>
+                        To use this method, we only need to know the denominators of the transfer functions.
+                        </br></br>
+                        Let's use the previous example to do the stability analysis. Type the following script in the
+                        command window
+                        <div class="codeClass">
+                            <code><pre>
+                                den = [1, 0.6, 1];
+                                roots(den)
+                            </pre></code>
+                        </div>
+                        Run the script, and you will see the following results in the command window.
+                        </br></br>
+                        <div class="col-12 col-xl-6">
+                            <pre>
+                            <img src="pic/sa6.jpg" width="180" height="80">
+                            </pre>
+                        </div>
+                        If we have the complete transfer function of the system, we can also use the second method. The
+                        Syntax is as following:
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                G = transFunc;
+                                pole(G)
+                            </pre></code>
+                        </div>
+                        Also, we can use the following script to show the poles and zeros in a pole-zero map.
+                        <div class="codeClass">
+                            <code><pre>
+                                pzmap(G);
+                            </pre></code>
+                        </div>
+                        Let's use the previous example again to analyze the stability with the second method. Create a new
+                        file and type the following script in it.
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                G = 1/(s^2+0.6*s+1);
+                                pole(G)
+                                pzmap(G);
+                                axis([-0.4, 0, -1, 1]);
+                            </pre></code>
+                        </div>
+                        Run the file and you will see the pole-zero map and the poles in the command window.
+                        </br></br>
+                        <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/sa7.jpg" width="304" height="228"> <img src="pic/sa8.jpg" width="150" height="80">
+                            </pre>
+                        </div>
+                        As you can see, the results from both methods are exactly the same.
                     </p>
                 </div>
                 </br>

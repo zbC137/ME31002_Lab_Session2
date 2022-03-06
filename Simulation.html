@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +13,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
 </head>
 
 <body>
@@ -35,15 +41,15 @@
             </li>
         </ul>
     </nav>
-	<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row header">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fa fa-bars"></i>
-                        <!-- <span>Menu</span> -->
-                    </button>
-                    <div class="col-10 col-xl-auto h2Div" onclick="location.href='lab2.html';">
-                        <h2>ME31002 Lab Session 2</h2>
-                    </div>
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fa fa-bars"></i>
+                <!-- <span>Menu</span> -->
+            </button>
+            <div class="col-10 col-xl-auto h2Div" onclick="location.href='lab2.html';">
+                <h2>ME31002 Lab Session 2 -- Simulation</h2>
+            </div>
 
         </div>
         </br>
@@ -51,198 +57,211 @@
             <div class="col-12 col-xl-8 mainContent">
                 <div>
                     <h4>
-                        Basic Syntax
+                        Simulation with Transfer Functions
                     </h4>
                     <hr>
-                    <p>
-                        In MATLAB there are 3 basic types of numbers that you will be working with, which are all actually matrices. There are scalars, which are just plain numbers, vectors, which are kind of like a list of numbers, and matrices, which are tables of numbers. Let's create a simple scalar:
-                        </br><div class="codeClass"><code>x = 6</code></div></br>
-                        The variable 'x' appeared in the Workspace and if we check its size, we can see that it is a one-by-one matrix even if it looks like a scalar.
-                        </br><div class="codeClass"><code>size(x)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   1
-</code></pre>
-                        </div></br>
+                    In previous sections, we have learnt how to represent a transfer function and do some simple
+                    analysis
+                    in Matlab. By now, you should be able to create simple simulations of dynamic systems as long as the
+                    transfer functions are available.
+                    </br></br>
+                    Now, let's use an example to review the previous sections. Calculate the transfer function of the
+                    following
+                    system, give the step response, impulse response and time response with a sin input, and analyze the
+                    stability of the closed-loop system.
+                    </br></br>
+                    <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/sim1.jpg" width="400" height="200">
+                            </pre>
+                    </div>
+                    Create a new file and type the following scripts in it.
+                    <div class="codeClass">
+                        <code><pre>
+                            clc; clear;
+                            close all;
 
-                        To create a vector, we use square brackets.
-                        </br><div class="codeClass"><code>v = [1 2 3];</code></div></br>
-                        So, our v variable contains 3 elements and if we check its size, we get that it's a one-by-three matrix.
-                        </br><div class="codeClass"><code>size(v)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   3
-</code></pre>
-                        </div></br>
-                        Here we used a semicolon. It we don't use it, then the result of our command will be printed out.
-                        </br><div class="codeClass"><code>v = [1 2 3]</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1   2   3
-</code></pre>
-                        </div></br>
-                        So, it is convenient to use semicolons when we want to keep our screen clear from too much data.
-                        </br></br>
-                        Matrices are created like vectors with the difference that rows are separated by semicolons.
-                        </br><div class="codeClass"><code>A = [1 2; 3 4]</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   2
-   3   4
-</code></pre>
-                        </div></br>
-                        So, we obtained a two-by-two matrix.
-                        </br><div class="codeClass"><code>size(A)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   2   2
-</code></pre>
-                        </div></br>
-                        What if we would like to combine 3 row vectors into a matrix?
-                        </br><div class="codeClass"><code>P = [1 2 3 4]; </br>Q = [5 6 7 8]; </br>R = [9 11 11 12]; </code></div></br>
-                        We can assign them into a matrix.
-                        </br><div class="codeClass"><code>S = [P; Q; R]</code></div>
-                        <div class="codeAns">
-<pre><code>
-S =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-</code></pre>
-                        </div></br>
-                        So, we obtained a three-by-four matrix.
-                        </br><div class="codeClass"><code>size(S)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   3   4
-</code></pre>
-                        </div></br>
-                    </p>
+                            %% Calculate transfer function
+                            s = tf('s');
+
+                            sys1 = 20/((s+1)*(s+4));
+                            h1 = 0.4490;
+                            G1 = feedback(sys1, h1, -1);
+
+                            sys2 = 1/s;
+                            G2 = series(G1, sys2);
+
+                            h2 = 1;
+                            G = feedback(G2, h2, -1)
+
+                            %% Time responses
+                            t = 0:0.001:10;
+
+                            [y1, t] = step(G, t);
+                            stepinfo(G)
+
+                            [y2, t] = impulse(G, t);
+
+                            [y3, t] = lsim(G, sin(t), t);
+
+                            %% Stability analysis
+                            p = pole(G)
+
+                            %% Plotting
+                            figure(1)
+                            plot(t, y1);
+                            xlabel('t(s)'); ylabel('y');
+                            title('Step Response');
+
+                            figure(2)
+                            plot(t, y2);
+                            xlabel('t(s)'); ylabel('y');
+                            title('Impulse Response');
+
+                            figure(3)
+                            plot(t, y3);
+                            xlabel('t(s)'); ylabel('y');
+                            title('Time Response with sin(t) Input');
+
+                            figure(4)
+                            pzmap(G);
+                        </pre>
+                        </code>
+                    </div>
+                    Run the file, and you will get the results as follows:
+                    </br></br>
+                    <div class="col-12 col-xl">
+                        <pre>
+                            <img src="pic/sim2.jpg" width="304" height="228"> <img src="pic/sim3.jpg" width="304" height="228">
+                            <img src="pic/sim4.jpg" width="304" height="228"> <img src="pic/sim5.jpg" width="304" height="228">
+                        </pre>
+                    </div>
+                    <div class="col-20 col-xl">
+                        <pre>
+                            <img src="pic/sim6.jpg" width="250" height="120"> <img src="pic/sim7.jpg" width="150" height="220"> <img src="pic/sim8.jpg" width="180" height="120">
+                        </pre>
+                    </div>
+                    <h4>
+                        Simulation with ODEs
+                    </h4>
                     <hr>
-                    <p>
-                        From math courses, you should know that matrices' dimensions are very important when we are multiplying them or doing other operations. And typically, you work with a column vector, not a row vector like the one that we created before. So we can easily transform it into a column vector using apostrophe to perform a transpose.
-                        </br><div class="codeClass"><code>v = v'</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1
-   2
-   3
-</code></pre>
-                        </div></br>
-                        <div class="codeClass"><code>size(v)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
+                    Although simulation with transfer function is very convenient in Matlab, it is not enough to handle
+                    all kinds of systems. For complex systems, such as nonlinear systems, it is always the case that we
+                    can only obtain the ordinary differential equations (ODEs) but not transfer functions, and the ODEs
+                    usually cannot be analytically solved. In this case, we need to numerically calculate the ODEs instead.
+                    </br></br>
+                    Matlab provides abundant resources for numerically solving ODEs.
+                    </br></br>
+                    <h5>
+                        ODE Representation
+                    </h5>
+                    To numerically solve the ODEs, the first step is to represent the ODEs with Matlab language. Generally,
+                    we need to create a function to represent the ODEs. The syntax is as follows.
+                    <div class="codeClass">
+                        <code><pre>
+                            function DY = Fun(t, Y)
+                                ...
+                                DY(1,:) = f1(Y);
+                                DY(2,:) = f2(Y);
+                                ...
+                            end
+                        </pre></code>
+                    </div>
+                    where "t" is the time variable, "Y" is the column vector of states, and "DY" is the first derivative
+                    of "Y". For a dynamic system with control input, the syntax is as follows.
+                    <div class="codeClass">
+                        <code><pre>
+                            function DY = Fun(t, Y, u)
+                                ...
+                                DY(1,:) = f1(Y, u);
+                                DY(2,:) = f2(Y, u);
+                                ...
+                            end
+                        </pre></code>
+                    </div>
+                    where "u" is the column vector of control input.
+                    </br></br>
+                    Now let's see a simple example. Create a ODE function for the following mass-damper system.
+                    <div class="col-12 col-xl-10">
+                        <pre>
+                            <img src="pic/sim9.jpg" width="350" height="160">
+                        </pre>
+                    </div>
+                    The system can be depicted by the following ODE
+                    </br></br>
+                    <div class="formula">
+                        <span>`m\dot(v)+cv =f`</span>
+                    </div>
+                    </br>
+                    Assume m=1 and c=2, the ODE can be writen as
+                    </br></br>
+                    <div class="formula">
+                        <span>`\dot(v)=-2v+f`</span>
+                    </div>
+                    </br>
+                    Create a new file named "dynamics.m" and type the following scripts to create the ODE function.
+                    <div class="codeClass">
+                        <code><pre>
+                            function dv = dynamics(t, v, f)
+                                m = 1;
+                                c = 2;
+                                dv = -c/m*v + f;
+                            end
+                        </pre></code>
+                    </div>
+                    <h5>
+                        Solvers
+                    </h5>
+                    After we create the ODE function, we can call the solvers to solve the ODE. Matlab provides many ODE
+                    solvers. Among these solvers, the most commonly-used one is the "ode45" solver. When the ODE function
+                    is particularly expensive to evaluate, you can use "ode113" as an alternative.
+                    </br></br>
+                    The syntax of using "ode45" to solve ODE functions is
+                    <div class="codeClass">
+                        <code><pre>
+                            [t, Y] = ode45('ODE_FUN', tspan, Y0, options);
+                        </pre></code>
+                    </div>
+                    where "ODE_FUN" is the name of the ODE function file you have created, "tspan" is the time span for
+                    solving the ODE function,"Y0" is the initial value of the ODE function, "t" is the sequence of
+                    independent variable, and "Y" is the numerical solution.
+                    </br></br>
+                    "Options" is an optional argument defined by "odeset" function. The syntax of it is
+                    <div class="codeClass">
+                        <code><pre>
+                            options = odeset(Name, Value,...);
+                        </pre></code>
+                    </div>
+                    You can define many options for ODE solvers. Two commonly-used options are the error control arguments,
+                    i.e. the absolute error tolerance "AbsTol" and the relative error tolerance "RelTol".
+                    </br></br>
+                    Now, let's see an example. For the previous mass-damper system, we implement a constant force f=1 to
+                    it and create a simulation to see the time response. Create a new file and type the following scripts
+                    in it.
+                    <div class="codeClass">
+                        <code><pre>
+                            t = 0:0.001:5;
+                            f = 1;
+                            v0 = 1;
 
-   3   1
-</code></pre>
-                        </div></br>
-                        So, you see that v used to be a one-by-three row vector, now it is a three-by-one vector. Of course, you can manually initialize a column vector using semicolons.
-                        </br><div class="codeClass"><code>v = [1; 2; 3]</code></div>
-                        <div class="codeAns">
-<pre><code>
-v =
-   1
-   2
-   3
-</code></pre>
-                        </div><hr></br>
-                        The next thing we need to learn is how to access elements of a matrix. Generally, we use parentheses and index for that. So, if we want to get an element from the i-th row and j-th column we write it like this but with numbers.
-                        </br><div class="codeClass"><code>A(1,1)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans = 1
-</code></pre>
-                        </div></br>
-                        Note that indexing in MATLAB starts from 1, not 0 as in many other languages. Another thing that we can do is to extract a vector from a matrix. So, let's say we want the first row of matrix A. First, we identify the number of the row, 1 in our case, and put a colon in the choice of the column. This means returning all the columns in row 1.
-                        </br><div class="codeClass"><code>A(1,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   1   2
-</code></pre>
-                        </div></br>
-                        Similarly, we can use a colon syntax to get the entire column of a matrix. For example, we want to extract the second column of a matrix A.
-                        </br><div class="codeClass"><code>A(:,2)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-   2
-   4
-</code></pre>
-                        </div></br>
-                        If we put colons in both parts, we will get the whole original matrix.
-                        </br><div class="codeClass"><code>A = [1 2 3 4; 5 6 7 8; 9 10 11 12; 13 4 15 16]</code></div>
-                        <div class="codeAns">
-<pre><code>
-A =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-   13    4   15   16
-</code></pre>
-                        </div></br>
-                        </br><div class="codeClass"><code>A(:,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    1    2    3    4
-    5    6    7    8
-    9   10   11   12
-   13    4   15   16
-</code></pre>
-                        </div></br>
-                        Colon syntax can be as well used to access ranges or submatrices. Let's say we want a middle part of A.
-                        </br><div class="codeClass"><code>A(2:3, 2:3)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    6    7
-   10   11
-</code></pre>
-                        </div></br>
-                        If we want to get all the value from a specfic row. It is not necessary to identify the last index. So, if we write <code>A(3,:)</code>, we'll get all elements from the third row.
-                        </br><div class="codeClass"><code>A(3,:)</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    9   10   11   12
-</code></pre>
-                        </div></br>
+                            options = odeset('RelTol', 1e-6, 'AbsTol', 1e-6);
+                            [~, v] = ode45(@(t, v)dynamics(t, v, f), t, v0, options);
 
-
-                        The colon syntax can be used by itself, it basically creates a range. So if we do something like <code>1:10</code>, it gives back all the numbers from 1 to 10.
-                        </br><div class="codeClass"><code>1:10</code></div>
-                        <div class="codeAns">
-<pre><code>
-ans =
-    1    2    3    4    5    6    7    8    9   10
-</code></pre>
-                        </div></br>
-                        We can assign this range to a variable <code>w</code>.
-                        </br><div class="codeClass"><code>w = 1:10</code></br><code>size(w)</code></div>
-                        <div class="codeAns">
-<pre><code>
-w =
-    1    2    3    4    5    6    7    8    9   10
-
-ans =
-    1   10
-</code></pre>
-                        </div></br>
-                        So, we can see that this command creates a row vector with the elements 1 to 10.
-
-                    </p>
+                            figure(1)
+                            plot(t, v);
+                            xlabel('t'); ylabel('Linear velocity');
+                        </pre></code>
+                    </div>
+                    Note that the "@(t,v) in the script is declaring the independent variable and state variable of the
+                    arguments of "dynamics". Run the file and you can see the figure showing the simulation result.
+                    </br></br>
+                    <div class="col-12 col-xl-8">
+                        <pre>
+                            <img src="pic/sim10.jpg" width="304" height="228">
+                        </pre>
+                    </div>
                 </div>
                 </br>
-
 
 
             </div>
@@ -251,17 +270,17 @@ ans =
         </div>
         <div class="row">
             <div class="col col-md-2 prev">
-            <p> <a href="SystemAnalysis.html"> &#10094; Back </a></p>
+                <p><a href="SystemAnalysis.html"> &#10094; Back </a></p>
             </div>
             <div class="col"></div>
             <div class="col col-md-2 next">
-                <p> <a href="LabReport.html">Next &#10095; </a></p>
+                <p><a href="LabReport.html">Next &#10095; </a></p>
             </div>
         </div>
         <div class="backToTop">
-            <p> <a href="#top">Back to Top</a></p>
+            <p><a href="#top">Back to Top</a></p>
         </div>
-	</div>
+    </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/code.js"></script>
