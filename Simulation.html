@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script src="mathjax-config.js" defer></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 
 <body>
@@ -193,15 +196,11 @@
                     </div>
                     The system can be depicted by the following ODE
                     </br></br>
-                    <div class="formula">
-                        <span>`m\dot(v)+cv =f`</span>
-                    </div>
+                    $$m\dot{v}+cv=f$$
                     </br>
-                    Assume m=1 and c=2, the ODE can be writen as
+                    Assume $m=1$ and $c=2$, the ODE can be writen as
                     </br></br>
-                    <div class="formula">
-                        <span>`\dot(v)=-2v+f`</span>
-                    </div>
+                    $$\dot v=-2v+f$$
                     </br>
                     Create a new file named "dynamics.m" and type the following scripts to create the ODE function.
                     <div class="codeClass">

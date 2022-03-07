@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script src="mathjax-config.js" defer></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 
 <body>
@@ -141,9 +144,7 @@
                         </br></br>
                         Let's see an example. Compute the partial fraction decomposition of the following transfer function.
                         </br></br>
-                        <div class="formula">
-                            <span>`\frac(B(s))(A(s))=\frac(2s^3+5s^2+3s+6)(s^3+6s^2+11s+6)`</span>
-                        </div>
+                        $$\frac{B(s)}{A(s)}=\frac{2s^3+5s^2+3s+6}{s^3+6s^2+11s+6}$$
                         </br>
                         create a new file and type the following scripts in it,
                         <div class="codeClass">
@@ -162,9 +163,7 @@
                         </div>
                         So, now we can write the partial fraction decomposition of the transfer function as
                         </br></br>
-                        <div class="formula">
-                            <span>`\frac(B(s))(A(s))=\frac(-6)(s+3)+\frac(-4)(s+2)+\frac(3)(s+1)+2`</span>
-                        </div>
+                        $$\frac{B(s)}{A(s)}=\frac{-6}{s+3}+\frac{-4}{s+2}+\frac{3}{s+1}+2$$
                         </br>
                         The function "residue" can also convert the "[r, p, k]" into numerators and denominators. For
                         example, using the result we got in the previous example, create a new file and type the

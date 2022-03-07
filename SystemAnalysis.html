@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script src="mathjax-config.js" defer></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 
 <body>
@@ -121,9 +124,7 @@
                         </br></br>
                         Let's see an example. Calculate the step response of the following system.
                         </br></br>
-                        <div class="formula">
-                            <span>`G(s)=\frac(1)(s^2+0.6s+1)`</span>
-                        </div>
+                        $$G(s)=\frac{1}{s^2+0.6s+1}$$
                         </br>
                         Create a new file and type the following script in it.
                         <div class="codeClass">
