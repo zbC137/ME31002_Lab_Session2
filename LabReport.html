@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script src="js/mathjax-config.js" defer></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 
 <body>
@@ -66,8 +69,8 @@
                 <h5>
                     Question 1
                 </h5>
-                Given the following dynamic system <span>`\ddot(x)+2\dot(x)+10x=u^2`</span> with initial conditions
-                <span>`x(0)=0`</span> and <span>`\dot(x)=0`</span>, represent its Laplace transformation and calculate
+                Given the following dynamic system $\ddot{x}+2\dot{x}+10x=t^2$ with initial conditions
+                $x(0)=0$ and $\dot x(0)=0$, and $t$ is the time, represent its Laplace transformation and calculate
                 its partial fraction decomposition in Matlab/Octave.
                 </br></br>
                 <h5>
@@ -86,9 +89,7 @@
                 Given the following transfer function, calculate the step response, impulse response and the time response
                 with a square wave input of period 8s with amplitude 1;
                 </br></br>
-                <div class="formula">
-                    <span>`G(s)=\frac(16)(s^2+3s+16)`</span>
-                </div>
+                $$G(s)=\frac{16}{s^2+3s+16}$$
                 </br>
                 Hint: the syntax of generating square wave in Matlab is
                 <div class="codeClass">
@@ -116,25 +117,23 @@
                     Question 4
                 </h5>
                 Consider the following mass-damper-spring system, we can depict it with an ODE
-                <span>`m\ddot(x)+c\dot(x)+kx=f`</span>.
+                $m\ddot{x}+c\dot x+kx=f$.
                  </br></br>
                 <div class="col-12 col-xl-10">
                     <pre>
                         <img src="pic/lr3.jpg" width="400" height="200">
                     </pre>
                 </div>
-                Suppose we have <span>`m=1,c=2,k=1`</span>, create a simulation to show the response of <span>`x`</span>
-                under a constant force <span>`f=1`</span>.
+                Suppose we have $m=1,c=2,k=1$, create a simulation to show the response of $x$
+                under a constant force $f=1$.
                 </br></br>
-                Hint: For a given second-order system <span>`\ddot(x)+b\dot(x)+c=u`</span>, denote
-                <span>`x_1=x, x_2=\dot(x)`</span> then the system can be rewritten as
+                Hint: For a given second-order system $\ddot{x}+b\dot{x}+cx=u$, denote
+                $x_1=x, x_2=\dot{x}$, then the system can be rewritten as
                 </br></br>
-                <div class="formula">
-                    <span>`\dot x_1=x_2`</span>
-                </div>
-                <div class="formula">
-                    <span>`\dot x_2=-bx_1-c+u`</span>
-                </div>
+                $$\left\{\begin{aligned}
+                    & \dot x_1=x_2\\
+                    & \dot x_2 = -bx_2-cx_1+u
+                \end{aligned}\right.$$
                 </br></br>
             </div>
 
