@@ -6,7 +6,7 @@ Author: ZHANG Bin
 
 Mail: me-bin.zhang@connect.polyu.hk
 ### Usage of the Tutorial
-Download all the files to your path, then double click "lab2.html" to start to use the tutorial.
+Download all the files to your path, then double click "index.html" to start to use the tutorial.
 Note that keep all files where they are and DON'T move any file to other directories.
 
 ### Usage of the demos
