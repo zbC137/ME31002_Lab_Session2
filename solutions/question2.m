@@ -1,9 +1,10 @@
 clc; clear;
 close all;
 
-%uncomment the next line if using Octave
+% comment the next line if using Matlab
 pkg load control;
 
+% compute the transfer function
 s = tf('s');
 
 G1 = 1/s^2;
@@ -19,4 +20,5 @@ sys4 = series(sys2, sys3);
 H2 = 1;
 G = feedback(sys4, H2, -1)
 
+% compute the poles
 pole(G)

@@ -1,8 +1,8 @@
 clc; clear;
 close all;
 
-% uncomment the next line if you are using Octave
-%pkg load signal;
+% comment the next line if you are using Matlab
+pkg load signal;
 
 t = 0:0.001:20;
 %% transfer function
