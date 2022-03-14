@@ -2,7 +2,7 @@ clc; clear;
 close all;
 
 % comment the next line if using Matlab
-%pkg load control;
+pkg load control;
 
 % show the Laplace transformation
 s = tf('s');
