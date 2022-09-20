@@ -71,7 +71,7 @@
                     </h4>
                     <hr>
                     PID control stands for the Proportional-Integral-Derivative control. We can read from its name that
-                    it consists of three sections, i.e., the proportional, integral, and derivative control. The following
+                    it consists of three parts, i.e., the proportional, integral, and derivative control. The following
                     figure shows the structure of a system controlled by a PID controller.
                     </br></br>
                     <div class="col-12 col-xl">
@@ -79,189 +79,96 @@
                             <img src="pic/pid.jpg" width="500" height="200">
                             </pre>
                     </div>
-                    Create a new file and type the following scripts in it.
-                    <div class="codeClass">
-                        <code><pre>
-                            clc; clear;
-                            close all;
+                    The usefulness of PID controls lies in their general feasibility to most control systems. In particular, 
+                    PID controls prove to be most useful when the mathematical model of the plant is unknown. 
+                    In the field of process control systems, it is well known that the 
+                    basic and modified PID control schemes have proved their usefulness in providing satisfactory control, 
+                    although in many given situations they may not provide optimal control.There are many variants of PID 
+                    controller, such as P controller, PI controller, and PD controller.
+                    <br><br>
+                    As mentioned before, the PID controller consists of three parts and it can be depicted by the following form.
+                    
+                    $$u(t)=K_pe(t)+K_i\int e(t)dt+K_d\frac{de(t)}{dt}$$
 
-                            %% Usage in Octave
-                            % Uncomment the next line to use in Octave
-                            %pkg load control;
-
-                            %% Calculate transfer function
-                            s = tf('s');
-
-                            sys1 = 20/((s+1)*(s+4));
-                            h1 = 0.4490;
-                            G1 = feedback(sys1, h1, -1);
-
-                            sys2 = 1/s;
-                            G2 = series(G1, sys2);
-
-                            h2 = 1;
-                            G = feedback(G2, h2, -1)
-
-                            %% Time responses
-                            t = 0:0.001:10;
-
-                            [y1, t] = step(G, t);
-                            stepinfo(G)
-
-                            [y2, t] = impulse(G, t);
-
-                            [y3, t] = lsim(G, sin(t), t);
-
-                            %% Stability analysis
-                            p = pole(G)
-
-                            %% Plotting
-                            figure(1)
-                            plot(t, y1);
-                            xlabel('t(s)'); ylabel('y');
-                            title('Step Response');
-
-                            figure(2)
-                            plot(t, y2);
-                            xlabel('t(s)'); ylabel('y');
-                            title('Impulse Response');
-
-                            figure(3)
-                            plot(t, y3);
-                            xlabel('t(s)'); ylabel('y');
-                            title('Time Response with sin(t) Input');
-
-                            figure(4)
-                            pzmap(G);
-                        </pre>
-                        </code>
-                    </div>
-                    Run the file, and you will get the results as follows:
-                    </br></br>
+                    Each part has a gain parameter, denoted by
+                    $K_p$ for proportional, $K_i$ for integral, and $K_d$ for derivative, respectively. The performance of the PID
+                    controller is governed by these three gain parameters.
+                    <br><br>
+                    Larger $K_p$ usaully leads to faster response since the larger the error, the larger the proportional term 
+                    compensation. However, an excessively large $K_p$ could cause the instability and oscillation.
+                    <br><br>
+                    The integral part is usually used for the elimination of offset caused by disturbance, etc.
+                    <br><br>
+                    The derivative part can mitigate the overshoot and stability problem arised from a proportional controller with a high gain.
+                    <br><br>
+                    The following table presents the characteristics of different part of the PID controller.
+                    <br><br>
                     <div class="col-12 col-xl">
                         <pre>
-                            <img src="pic/sim2.jpg" width="350" height="250"> <img src="pic/sim3.jpg" width="350" height="250">
-                            <img src="pic/sim4.jpg" width="350" height="250"> <img src="pic/sim5.jpg" width="350" height="250">
+                        <img src="pic/param.jpg" width="500" height="250">
                         </pre>
                     </div>
-                    <div class="col-20 col-xl">
-                        <pre>
-                            <img src="pic/sim6.jpg" width="250" height="120"> <img src="pic/sim7.jpg" width="150" height="220"> <img src="pic/sim8.jpg" width="180" height="120">
-                        </pre>
-                    </div>
+                    
                     <h4>
-                        Simulation with ODEs
+                        Implementation of PID Controller
                     </h4>
                     <hr>
-                    Although simulation with transfer function is very convenient in Matlab, it is not enough to handle
-                    all kinds of systems. For complex systems, such as nonlinear systems, it is always the case that we
-                    can only obtain the ordinary differential equations (ODEs) but not transfer functions, and the ODEs
-                    usually cannot be analytically solved. In this case, we need to numerically calculate the ODEs instead.
-                    </br></br>
-                    Matlab provides abundant resources for numerically solving ODEs.
+                    In the previous section, we were discussing the PID controller in an analog way, that is, we are using a 
+                    continuous PID controller to regulate a continuous system. However, to implement the PID controller in a 
+                    simulation or to a real systems, such as robots, we usually need to design it in a discrete way.
+                    <br><br>
+                    There are many methods to implement the discrete PID controller. In this section, we discuss two of them, which
+                    are most commonly used.
                     </br></br>
                     <h5>
-                        ODE Representation
+                        Positional PID Control
                     </h5>
-                    To numerically solve the ODEs, the first step is to represent the ODEs with Matlab language. Generally,
-                    we need to create a function to represent the ODEs. The syntax is as follows.
-                    <div class="codeClass">
-                        <code><pre>
-                            function DY = Fun(t, Y)
-                                ...
-                                DY(1,:) = f1(Y);
-                                DY(2,:) = f2(Y);
-                                ...
-                            end
-                        </pre></code>
-                    </div>
-                    where "t" is the time variable, "Y" is the column vector of states, and "DY" is the first derivative
-                    of "Y". For a dynamic system with control input, the syntax is as follows.
-                    <div class="codeClass">
-                        <code><pre>
-                            function DY = Fun(t, Y, u)
-                                ...
-                                DY(1,:) = f1(Y, u);
-                                DY(2,:) = f2(Y, u);
-                                ...
-                            end
-                        </pre></code>
-                    </div>
-                    where "u" is the column vector of control input.
-                    </br></br>
-                    Now let's see a simple example. Create a ODE function for the following mass-damper system.
-                    <div class="col-12 col-xl-10">
-                        <pre>
-                            <img src="pic/sim9.jpg" width="350" height="160">
-                        </pre>
-                    </div>
-                    The system can be depicted by the following ODE
-                    </br></br>
-                    $$m\dot{v}+cv=f$$
-                    </br>
-                    Assume $m=1$ and $c=2$, the ODE can be writen as
-                    </br></br>
-                    $$\dot v=-2v+f$$
-                    </br>
-                    Create a new file named "dynamics.m" and type the following scripts to create the ODE function.
-                    <div class="codeClass">
-                        <code><pre>
-                            function dv = dynamics(t, v, f)
-                                m = 1;
-                                c = 2;
-                                dv = -c/m*v + f;
-                            end
-                        </pre></code>
-                    </div>
+                    Positional PID is an approximation of the analog PID. For this algorithm, we use a series of sampling time poins
+                    to replace the continuous time, use the summation to approximate the integration, and use the difference equation to 
+                    approximate the differential. The approximations are as follows:
+
+                    $$
+                    \left\{\begin{aligned}
+                    & t=kT, k=0,1,2,\dots\\
+                    & \int_0^te(t)dt\approx T\sum_{j=0}^ke(j)\\
+                    & \frac{de(t)}{dt}\approx\frac{e(k)-e(k-1)}{T}
+                    \end{aligned}\right.
+                    $$
+
+                    where $T$ is the sampling period, $e(k)=e(kT)$. Therefore, we can obtain the discrete PID controller as 
+                    the following form:
+
+                    $$
+                    u(k)=K_pe(k)+k_iT\sum_{j=0}^ke(j)+K_d\frac{e(k)-e(k-1)}{T}
+                    $$
+
                     <h5>
-                        Solvers
+                        Incremental PID Control
                     </h5>
-                    After we create the ODE function, we can call the solvers to solve the ODE. Matlab provides many ODE
-                    solvers. Among these solvers, the most commonly-used one is the "ode45" solver. When the ODE function
-                    is particularly expensive to evaluate, you can use "ode113" as an alternative.
-                    </br></br>
-                    The syntax of using "ode45" to solve ODE functions is
-                    <div class="codeClass">
-                        <code><pre>
-                            [t, Y] = ode45('ODE_FUN', tspan, Y0, options);
-                        </pre></code>
-                    </div>
-                    where "ODE_FUN" is the name of the ODE function file you have created, "tspan" is the time span for
-                    solving the ODE function,"Y0" is the initial value of the ODE function, "t" is the sequence of
-                    independent variable, and "Y" is the numerical solution.
-                    </br></br>
-                    "Options" is an optional argument defined by "odeset" function. The syntax of it is
-                    <div class="codeClass">
-                        <code><pre>
-                            options = odeset(Name, Value,...);
-                        </pre></code>
-                    </div>
-                    You can define many options for ODE solvers. Two commonly-used options are the error control arguments,
-                    i.e. the absolute error tolerance "AbsTol" and the relative error tolerance "RelTol".
-                    </br></br>
-                    Now, let's see an example. For the previous mass-damper system, we implement a constant force f=1 to
-                    it and create a simulation to see the time response. Create a new file and type the following scripts
-                    in it.
-                    <div class="codeClass">
-                        <code><pre>
-                            t = 0:0.001:5;
-                            f = 1;
-                            v0 = 1;
+                    The incremental PID control can be derived from the positional PID control. We define a control increment
 
-                            options = odeset('RelTol', 1e-6, 'AbsTol', 1e-6);
-                            [~, v] = ode45(@(t, v)dynamics(t, v, f), t, v0, options);
+                    $$
+                    \Delta u(k)=u(k)-u(k-1)
+                    $$
 
-                            figure(1)
-                            plot(t, v);
-                            xlabel('t'); ylabel('Linear velocity');
-                        </pre></code>
-                    </div>
-                    Note that the "@(t,v)" in the script is declaring the independent variable and state variable of the
-                    arguments of "dynamics". Run the file and you can see the figure showing the simulation result.
-                    </br></br>
-                    <div class="col-12 col-xl-8">
+                    Using the controller we derived in the positional PID control, we can obtain the incremental PID controller
+
+                    $$
+                    \Delta u(k)=K_p(e(k)-e(k-1))+K_iTe(k)+K_d\frac{e(k)-2e(k-1)+e(k-2)}{T}
+                    $$
+
+                    <h5>
+                        Parameter Tuning
+                    </h5>
+                    One key to implement the PID controller well is the tuning of the three gain parameters. However, tuning the parameters
+                    is usually empirical and there's no formal analytical ways to do it. Many methods have been developed to faciliate the
+                    parameters tuning. Here, we present a most commonly used method.
+                    <br><br>
+                    The basic routine is shown in the following table.
+                    <br><br>
+                    <div class="col-12 col-xl">
                         <pre>
-                            <img src="pic/sim10.jpg" width="400" height="300">
+                        <img src="pic/tuning.jpg" width="500" height="300">
                         </pre>
                     </div>
                 </div>
