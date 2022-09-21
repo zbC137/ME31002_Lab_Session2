@@ -1,56 +1,62 @@
-%PID Controller
 close all;
 clear; clc;
 
+% uncomment the following line if you are using Octave.
+% pkg load control
+
 %% parameters
-ts=0.001;
-sys=tf(5.235e005,[1,87.35,1.047e004,0]);
-dsys=c2d(sys,ts,'z');
-[num,den]=tfdata(dsys,'v');
+dt = 0.001;   % sampling period
 
-u_1=0.0;u_2=0.0;u_3=0.0;
-y_1=0.0;y_2=0.0;y_3=0.0;
-x=[0,0,0]';
-error_1=0;
+% initial values
+u_1 = 0.0;    % u(k-1)
+u_2 = 0.0;    % u(k-2)
+u_3 = 0.0;    % u(k-3)
+
+x_1 = 0.0;    % x(k-1)
+x_2 = 0.0;    % x(k-2)
+x_3 = 0.0;    % x(k-3)
+
+e_curr = 0; % current error
+e_last = 0; % last error
+e_sum = 0;  % interation
+e_diff = 0; % differential
+
+% gain parameters
+kp = 0.5;
+ki = 0.001;
+kd = 0.001; 
+
+%% system discretization
+sys = tf(5.235e005,[1,87.35,1.047e004,0]);
+dsys = c2d(sys,dt,'z');
+[num,den] = tfdata(dsys,'v');
+n = size(num, 2);
+num = num(n-2:n);
+
 for k=1:1:2000
-time(k)=k*ts;
+time(k)=k*dt;
    
-S=1;
-if S==1
-    kp=0.6;ki=0.01;kd=0.01;          
-    yd(k)=1;                       %Step Signal
-elseif S==2
-    kp=0.50;ki=0.001;kd=0.001;          
-    yd(k)=sign(sin(2*2*pi*k*ts));  %Square Wave Signal
-elseif S==3
-    kp=1.5;ki=1.0;kd=0.01;          %Sine Signal
-    yd(k)=0.5*sin(2*2*pi*k*ts);           
-end
+% controller
+u(k) = kp*e_curr + ki*e_sum + kd*e_diff;
 
-u(k)=kp*x(1)+kd*x(2)+ki*x(3);   %PID Controller
-%Restricting the output of controller
-if u(k)>=10       
-   u(k)=10;
-end
-if u(k)<=-10
-   u(k)=-10;
-end
 %Linear model
-y(k)=-den(2)*y_1-den(3)*y_2-den(4)*y_3+num(2)*u_1+num(3)*u_2+num(4)*u_3;
+x(k)=-den(2)*x_1-den(3)*x_2-den(4)*x_3+num(1)*u_1+num(2)*u_2+num(3)*u_3;
 
-error(k)=yd(k)-y(k);
+% data recording
+xd(k) = 1;  % step singal
+error(k) = xd(k)-x(k);
 
-%Return of parameters
-u_3=u_2;u_2=u_1;u_1=u(k);
-y_3=y_2;y_2=y_1;y_1=y(k);
-   
-x(1)=error(k);                %Calculating P
-x(2)=(error(k)-error_1)/ts;   %Calculating D
-x(3)=x(3)+error(k)*ts;        %Calculating I
+% update
+e_last = e_curr;
+e_curr = error(k);
+e_sum = e_sum + e_curr*dt;
+e_diff = (e_curr - e_last)/dt;
 
-error_1=error(k);
+u_3 = u_2; u_2 = u_1; u_1 = u(k);
+x_3 = x_2; x_2 = x_1; x_1 = x(k);
+
 end
 figure(1);
-plot(time,yd,'r',time,y,'k:','linewidth',2);
+plot(time,xd,'r',time,x,'k','linewidth',1);
 xlabel('time(s)');ylabel('yd,y');
 legend('Ideal position signal','Position tracking');
