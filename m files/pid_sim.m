@@ -56,6 +56,8 @@ u_3 = u_2; u_2 = u_1; u_1 = u(k);
 x_3 = x_2; x_2 = x_1; x_1 = x(k);
 
 end
+
+%% plot data
 figure(1);
 plot(time,xd,'r',time,x,'k','linewidth',1);
 xlabel('time(s)');ylabel('xd,x');
