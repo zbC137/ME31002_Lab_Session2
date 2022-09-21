@@ -58,5 +58,5 @@ x_3 = x_2; x_2 = x_1; x_1 = x(k);
 end
 figure(1);
 plot(time,xd,'r',time,x,'k','linewidth',1);
-xlabel('time(s)');ylabel('yd,y');
+xlabel('time(s)');ylabel('xd,x');
 legend('Ideal position signal','Position tracking');
