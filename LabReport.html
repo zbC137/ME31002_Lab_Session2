@@ -139,6 +139,22 @@
                     & \dot x_2 = -bx_2-cx_1+u
                 \end{aligned}\right.$$
                 </br></br>
+                <h5>
+                    Question 4
+                </h5>
+                Consider a system with the following transfer function
+                $$
+                G(s)=\frac{400}{s^2+50s}
+                $$
+                we set the sampling period as 0.001s and discretize it with $z$-transformation as:
+                $$
+                x(k)-1.9512x(k-1)+0.9512x(k-2)=10^{-3}\times[0.1967u(k-1)+0.1935u(k-2)]
+                $$
+                Suppose we have a constraint on the amplitude of the controller such that $\lvert u\rvert\leq10$, and
+                initial conditions of $x(0)=x(-1)=x(-2)=0$ and $u(-1)=u(-2)=0$, please design
+                an incremental PID controller to drive the system to track a step signal with amplitude of 1.
+                <br>
+                *Requirement: You should attach the code and the response of $x(k)$ in your report.
             </div>
 
         </div>
