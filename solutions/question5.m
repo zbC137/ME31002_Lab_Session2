@@ -3,14 +3,11 @@ clear all;
 close all;
 
 % comment this line if you use matlab.
-pkg load control
+% pkg load control
 
 ts=0.001;
-sys=tf(400,[1,50,0]);
-dsys=c2d(sys,ts,'z');
-[num,den]=tfdata(dsys,'v');
-n = size(num, 2);
-num = num(n-1:n)
+num = [0.1967, 0.1935]*1e-3;
+den = [1, -1.9512, 0.9512];
 
 u_1=0.0;u_2=0.0;u_3=0.0;
 y_1=0;y_2=0;y_3=0;
