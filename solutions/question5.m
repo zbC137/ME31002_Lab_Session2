@@ -3,7 +3,7 @@ clear all;
 close all;
 
 % comment this line if you use matlab.
-% pkg load control
+pkg load control
 
 ts=0.001;
 num = [0.1967, 0.1935]*1e-3;
