@@ -3,7 +3,8 @@
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -65,7 +66,7 @@
                         Usage in Octave
                     </h4>
                     <hr>
-                    To use the functions "step", "impulse", "lsim", "pole", and "pzmap" in Octave, you need to load the
+                    To use the functions "step", "impulse", "lsim", "pole", and "pzmap" in Octave, you may need to load the
                     control package firstly. You can add the following script to the beginning of your code to solve it.
                     <div class="codeClass">
                         <code><pre>
@@ -285,6 +286,29 @@
                             </pre>
                         </div>
                         As you can see, the results from both methods are exactly the same.
+                        <br><br>
+                        In addition, the Matlab/Octave also offer a tool to get the root locus of the system. You can achieve
+                        that by simply calling the following functon
+                        <div class="codeClass">
+                            <code><pre>
+                                rlocus(sys);
+                            </pre></code>
+                        </div>
+                        For the system in previous example, create a new file and type the following script in it
+                        <div class="codeClass">
+                            <code><pre>
+                                s = tf('s');
+                                G = 1/(s^2+0.6*s+1);
+                                rlocus(G);
+                            </pre></code>
+                        </div>
+                        Run the file, then we can get
+                        <div class="col-12 col-xl">
+                            <pre>
+                            <img src="pic/rlocus.jpg" width="500" height="400">
+                            </pre>
+                        </div>
+                        </br></br>
                     </p>
                 </div>
                 </br>
