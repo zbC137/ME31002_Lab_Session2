@@ -1,5 +1,5 @@
 % time span
-t = 0:0.001:20;
+t = 0:0.001:40;
 
 % initial conditions
 x0 = [0, 0];
@@ -12,4 +12,4 @@ options = odeset('RelTol', 1e-6, 'AbsTol', 1e-6);
 % plotting
 figure(1)
 plot(t, x(:, 1));
-xlabel('t(s)'); ylabel('Linear velocity');
+xlabel('t(s)'); ylabel('x');

@@ -6,9 +6,9 @@ close all;
 
 % show the Laplace transformation
 s = tf('s');
-sys = s/((s^2+4)*(s^2+2*s+10))
+sys = 5/(4*s^2+2*s+10)
 
 % compute the partial fraction decomposition
-num = [1, 0];
-den = [1, 2, 14, 8, 40];
+num = [5];
+den = [4, 2, 10];
 [r, p, k] = residue(num, den)
