@@ -2,13 +2,12 @@ clc; clear;
 close all;
 
 % comment the next line if you are using Matlab
-pkg load signal;
+% pkg load signal;
 
 t = 0:0.001:20;
 %% transfer function
 s = tf('s');
-%G = 16/(s^2+3*s+16);
-G = 8*(s+7)/((s+3.3)*(2*s+7));
+G = 8*(s+2)/((s+3.3)*(2*s+7));
 
 %% step response
 [y1, t] = step(G, t);
@@ -27,7 +26,7 @@ xlabel('t(s)'); ylabel('y');
 title('Impulse Response');
 
 %% square wave response
-f = square(2*pi*t/8);
+f = square(2*pi*t/5);
 [y3, t] = lsim(G, f, t);
 
 figure(3)
