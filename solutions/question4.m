@@ -3,7 +3,7 @@ t = 0:0.001:40;
 
 % initial conditions
 x0 = [0, 0];
-f = 1;
+f = 1.5;
 
 % simulation
 options = odeset('RelTol', 1e-6, 'AbsTol', 1e-6);

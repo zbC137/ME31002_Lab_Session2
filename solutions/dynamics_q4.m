@@ -1,8 +1,8 @@
 function dx = dynamics_q4(t, x, f)
 
 m = 1;
-b1 = 3;
-b2 = 2;
+b1 = 2;
+b2 = 3;
 k = 1;
 
 dx(1,:) = x(2);
